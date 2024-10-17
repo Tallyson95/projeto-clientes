@@ -4,6 +4,7 @@ import { ClientInfo } from '../components/ClientInfo.jsx';
 import { ClientForm } from '../components/ClientForm.jsx';
 import { Modal } from '../components/Modal.jsx';
 import '../styles/clientes.css';
+import { Load } from '../components/Load.jsx';
 
 export function Clientes() {
     const [clients, setClients] = useState([]);
@@ -11,13 +12,19 @@ export function Clientes() {
     const [filter, setFilter] = useState('');
     const clientsPerPage = 10;
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [LoadAnimation, setLoadAnimation] = useState(false);
 
     const criarCliente = async () => {
+        setLoadAnimation(true);
         try {
             const response = await axios.get(`${import.meta.env.VITE_APP_URL}/clients`);
             setClients(response.data);
+            setLoadAnimation(false)
+            return;
         } catch (error) {
-            console.error('Erro ao criar cliente:', error);
+            alert('Erro ao criar cliente:', error);
+            setLoadAnimation(false);
+            return;
         }
     };
 
@@ -66,7 +73,8 @@ export function Clientes() {
                 <ClientForm onClientCreated={newClient => setClients(prev => [newClient, ...prev])} onClose={() => setIsModalOpen(false)} />
             </Modal>
             <div className="client-list">
-                {filteredClients.slice((currentPage - 1) * clientsPerPage, currentPage * clientsPerPage).map(client => (
+                {LoadAnimation && <Load/>}
+                {!LoadAnimation && filteredClients.slice((currentPage - 1) * clientsPerPage, currentPage * clientsPerPage).map(client => (
                     <ClientInfo
                         key={client.id}
                         client={client}
