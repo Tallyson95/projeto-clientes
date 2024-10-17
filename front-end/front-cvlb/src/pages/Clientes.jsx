@@ -1,4 +1,3 @@
-// src/components/Clientes.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ClientInfo } from '../components/ClientInfo.jsx';
@@ -38,57 +37,50 @@ export function Clientes() {
         );
     });
 
-    const indexOfLastClient = currentPage * clientsPerPage;
-    const indexOfFirstClient = indexOfLastClient - clientsPerPage;
-    const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient);
-    const totalPages = Math.ceil(filteredClients.length / clientsPerPage);
-
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(prevPage => prevPage + 1);
-        }
+    const handleClientDeleted = (clientId) => {
+        setClients(prev => prev.filter(client => client.id !== clientId));
     };
 
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(prevPage => prevPage - 1);
-        }
-    };
-
-    const handleFilterChange = (event) => {
-        setFilter(event.target.value);
-        setCurrentPage(1);
-    };
-
-    const handleClientCreated = (newClient) => {
-        setClients(prev => [newClient, ...prev]);
+    const handleClientUpdated = (updatedClient) => {
+        setClients((prevClients) =>
+            prevClients.map(client => client.id === updatedClient.id ? updatedClient : client)
+        );
     };
 
     return (
-        <div>
-            <h1>Clientes</h1>
-            <input
-                type="text"
-                placeholder="Filtrar clientes..."
-                value={filter}
-                onChange={handleFilterChange}
-                className="filter-input"
-            />
-            <button onClick={() => setIsModalOpen(true)}>Cadastrar Novo Cliente</button>
+        <div className='container-client'>
+            <div style={{width:"100%", display:'flex', justifyContent:'space-between'}}>
+                <input
+                    type="text"
+                    placeholder="Buscar cliente..."
+                    value={filter}
+                    onChange={event => {
+                        setFilter(event.target.value);
+                        setCurrentPage(1);
+                    }}
+                    className="filter-input"
+                />
+                <button className='btn-new-client' onClick={() => setIsModalOpen(true)}>Cadastrar Cliente</button>
+            </div>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <ClientForm onClientCreated={handleClientCreated} onClose={() => setIsModalOpen(false)} />
+                <ClientForm onClientCreated={newClient => setClients(prev => [newClient, ...prev])} onClose={() => setIsModalOpen(false)} />
             </Modal>
             <div className="client-list">
-                {currentClients.map(client => (
-                    <ClientInfo key={client.id} client={client} />
+                {filteredClients.slice((currentPage - 1) * clientsPerPage, currentPage * clientsPerPage).map(client => (
+                    <ClientInfo
+                        key={client.id}
+                        client={client}
+                        onClientDeleted={handleClientDeleted}
+                        onClientUpdated={handleClientUpdated}
+                    />
                 ))}
             </div>
             <div className="pagination">
-                <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
                     Anterior
                 </button>
-                <span>Página {currentPage} de {totalPages}</span>
-                <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                <span>Página {currentPage} de {Math.ceil(filteredClients.length / clientsPerPage)}</span>
+                <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(filteredClients.length / clientsPerPage)))} disabled={currentPage === Math.ceil(filteredClients.length / clientsPerPage)}>
                     Próximo
                 </button>
             </div>
