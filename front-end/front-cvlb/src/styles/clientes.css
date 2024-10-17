@@ -1,0 +1,307 @@
+.client-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.itens-txt {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.client-card {
+    border: 2px solid #673AB7;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    width: 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.client-card,
+h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+h2 {
+    color: #673AB7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.client-card p {
+    margin: 4px 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #6c63ff;
+    color: white;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 16px;
+}
+
+.filter-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #6c63ff;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.container-client {
+    width: 100%;
+    height: auto;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.btn-edit-del {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalEditDel {
+    background-color: #6c63ff;
+    color: #FFFFFF;
+    border-radius: 8px;
+    z-index: 100;
+    margin-top: 2rem;
+}
+
+.title-name {
+    font-size: 20px;
+}
+
+.btn-new-client {
+    width: 120px;
+    padding: 10px;
+    margin: 0;
+    background-color: #6c63ff;
+    color: #ffffff;
+    border-radius: 8px;
+    font: 12px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid #6c63ff;
+}
+
+.txt-list {
+    margin: 1rem;
+    cursor: pointer;
+}
+
+@media(min-width:801px) and (max-width: 1199px){
+    .modalEditDel{
+        margin-top: 3rem;
+        font-size: 10px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 800px) {
+    .txt-list {
+        margin: 0;
+    }
+
+    .modalEditDel {
+        margin-top: 2rem;
+        border-radius: 8px;
+        font-size: 8px;
+        z-index: 100;
+    }
+
+    .ul-modal {
+        width: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .btn-new-client {
+        width: 120px;
+        height: 40px;
+        font-size: 10px;
+        padding: 0;
+        margin-right: 1rem;
+    }
+
+    .filter-input {
+        width: 120px;
+        margin-left: 1rem;
+    }
+
+    .title-name {
+        font-size: 14px;
+    }
+
+    .client-card {
+        width: 120px;
+        height: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .itens-txt {
+        width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 10px;
+    }
+
+    .client-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container-client {
+        margin: 0;
+        padding: 0 1rem;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 1200px) {
+    .btn-new-client {
+        width: 120px;
+        height: 40px;
+        font-size: 10px;
+        padding: 0;
+        margin-right: 1rem;
+    }
+
+    .filter-input {
+        width: 120px;
+        margin-left: 1rem;
+    }
+
+    .client-card {
+        width: 130px;
+    }
+
+    .container-client {
+        margin: 0;
+        padding: 0;
+    }
+
+    .client-card {
+        width: 120px;
+        height: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .itens-txt {
+        width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 10px;
+    }
+}
+
+.modalEditDel {
+    background-color: #6c63ff;
+    color: #FFFFFF;
+    border-radius: 8px;
+    z-index: 100;
+    padding: 8px;
+}
+
+.ul-modal {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 800px) {
+    .modalEditDel {
+        font-size: 10px;
+        padding: 12px;
+    }
+
+    .ul-modal {
+        width: 100%;
+        max-width: 150px;
+    }
+
+    .client-card {
+        width: 90%;
+        max-width: 200px;
+    }
+
+    .itens-txt {
+        font-size: 12px;
+    }
+
+    .title-name {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 1200px) {
+    .modalEditDel {
+        padding: 10px;
+    }
+
+    .ul-modal {
+        width: 80%;
+        max-width: 150px;
+    }
+
+    .client-card {
+        width: 80%;
+        max-width: 180px;
+    }
+
+    .itens-txt {
+        font-size: 12px;
+    }
+
+    .title-name {
+        font-size: 18px;
+    }
+}
